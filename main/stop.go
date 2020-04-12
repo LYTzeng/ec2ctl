@@ -38,7 +38,7 @@ func (stop *Stop) Run() string {
 	}
 	_, err := svc.StopInstances(input)
 	awsErr, ok := err.(awserr.Error)
-	if !ok && awsErr.Code() != "DryRunOperation" {
+	if !ok || awsErr.Code() != "DryRunOperation" {
 		stop.response = "AWS error: " + awsErr.Code()
 		return stop.response
 	}

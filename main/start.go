@@ -38,7 +38,7 @@ func (start *Start) Run() string {
 	}
 	_, err := svc.StartInstances(input)
 	awsErr, ok := err.(awserr.Error)
-	if !ok && awsErr.Code() != "DryRunOperation" {
+	if !ok || awsErr.Code() != "DryRunOperation" {
 		start.response = "AWS error: " + awsErr.Code()
 		return start.response
 	}
