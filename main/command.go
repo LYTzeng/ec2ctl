@@ -26,3 +26,14 @@ func StartEC2() *Start {
 	start.fs.StringVar(&start.instanceID, "i", "", "instance id")
 	return start
 }
+
+func ListEC2() *List {
+	ls := &List{
+		fs: flag.NewFlagSet("ls", flag.ContinueOnError),
+	}
+	ls.fs.StringVar(&ls.region, "r", "", "region")
+	if ls.region == "" {
+		ls.region = "all"
+	}
+	return ls
+}

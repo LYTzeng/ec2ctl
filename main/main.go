@@ -43,9 +43,11 @@ func printRemoteCMD(event events.APIGatewayProxyRequest) (events.APIGatewayProxy
 
 	usage := "Usage:\n\t" +
 		"ec2ctl version\n\t" +
-		"ec2ctl (stop | start) -i=<id>\n" +
+		"ec2ctl (stop | start) -i <id>\n\t" +
+		"ec2ctl ls [-r <region>]\n" +
 		"Options:\n\t" +
-		"-i=<id>\tSpecify an instance ID."
+		"-i <id>\tSpecify an instance ID.\n\t" +
+		"-r <region>\tSpecify a region."
 
 	if argString == "" {
 		return toResponse(usage, body["text"][0], body["user_name"][0])
@@ -61,6 +63,7 @@ func printRemoteCMD(event events.APIGatewayProxyRequest) (events.APIGatewayProxy
 		ShowVersion(),
 		StopEC2(),
 		StartEC2(),
+		ListEC2(),
 	}
 
 	subcommand := os.Args[1]
